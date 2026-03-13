@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Vault — Private Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       LOGIN SCREEN
+       ══════════════════════════════════════════════ -->
+  <div id="login-screen">
+    <div class="login-glow"></div>
+    <div class="login-box" id="login-box">
+      <p class="login-eyebrow">Private Access</p>
+      <h1 class="login-title">Birthday<br><span>Vault</span></h1>
+      <div class="input-wrap">
+        <input type="password" id="pw-input" placeholder="Enter password" autocomplete="off"/>
+        <button class="eye-btn" id="eye-btn" onclick="togglePw()">👁</button>
+      </div>
+      <button class="login-btn" onclick="login()">Unlock →</button>
+      <p class="login-error" id="login-error">Incorrect password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MAIN APP
+       ══════════════════════════════════════════════ -->
+  <div id="app" class="hidden">
+
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="nav-brand">
+        <span class="nav-logo"><b>Birthday</b> Vault</span>
+        <span class="nav-tag">Private Gallery</span>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn" onclick="loadVideos()">↻ Refresh</button>
+        <button class="nav-btn danger" onclick="logout()">Sign out</button>
+      </div>
+    </nav>
+
+    <!-- STATS -->
+    <div class="stats-bar" id="stats-bar">
+      <div class="stat">
+        <div class="stat-label">Total Videos</div>
+        <div class="stat-value" id="stat-count">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Storage Used</div>
+        <div class="stat-value" id="stat-size">—</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Folder</div>
+        <div class="stat-value" style="font-size:1.3rem">Birthday <span>/ Cloudinary</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Last Updated</div>
+        <div class="stat-value" id="stat-time" style="font-size:1.1rem">—</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="section-header">
+        <p class="section-title"><b>Reactions</b> — captured moments</p>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="search-input" placeholder="Search…" oninput="filterVideos()"/>
+        </div>
+      </div>
+      <div id="video-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       VIDEO MODAL
+       ══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <video class="modal-video" id="modal-video" controls></video>
+      <div class="modal-footer">
+        <div>
+          <div class="modal-name" id="modal-name"></div>
+          <div class="modal-meta" id="modal-meta"></div>
+        </div>
+        <div class="modal-btns">
+          <button class="action-btn" onclick="downloadCurrent()">⬇ Download</button>
+          <button class="action-btn delete" id="modal-del-btn" onclick="deleteCurrent()">🗑 Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- App logic -->
+  <script src="app.js"></script>
+
+</body>
+</html>
